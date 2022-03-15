@@ -22,12 +22,12 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Login Clicked", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this, MainActivity::class.java).apply {
-                // Parcelable
-                val auth = Auth(
-                    binding.usernameEditText.text.toString().trim(),
-                    binding.passwordEditText.text.toString().trim()
-                )
-                putExtra("auth", auth)
+                // Bundle
+                val bundle = Bundle().apply {
+                    putString("username", binding.usernameEditText.text.toString().trim())
+                    putString("password", binding.passwordEditText.text.toString().trim())
+                }
+                putExtras(bundle)
             }
 
             try {
