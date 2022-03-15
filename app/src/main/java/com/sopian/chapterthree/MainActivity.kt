@@ -16,10 +16,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Parcelable
-        val authData = intent.getParcelableExtra<Auth>("auth")
-        val username = authData?.username
-        val password = authData?.password
+        // Bundle
+        val bundle = intent.extras
+        val username = bundle?.getString("username")
+        val password = bundle?.getString("password")
 
         with(binding) {
             usernameTextView.text = username
