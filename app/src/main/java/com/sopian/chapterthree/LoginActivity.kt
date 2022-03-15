@@ -7,32 +7,27 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.sopian.chapterthree.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
-
-    // TODO 1 deklarasi widget
-    lateinit var usernameEditText: EditText
-    lateinit var passwordEditText: EditText
-    lateinit var loginButton: Button
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        loginButton = findViewById(R.id.login_button)
-        usernameEditText = findViewById(R.id.username_edit_text)
-        passwordEditText = findViewById(R.id.password_edit_text)
 
-        loginButton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             Toast.makeText(this, "Login Clicked", Toast.LENGTH_SHORT).show()
 
-            /**
-             * param 1 adalah activity asal
-             * param 2 adalah activity tujuan
-             */
             val intent = Intent(this, MainActivity::class.java).apply {
-                putExtra("username", usernameEditText.text.toString().trim())
-                putExtra("password", passwordEditText.text.toString().trim())
+                // Parcelable
+                val auth = Auth(
+                    binding.usernameEditText.text.toString().trim(),
+                    binding.passwordEditText.text.toString().trim()
+                )
+                putExtra("auth", auth)
             }
 
             try {

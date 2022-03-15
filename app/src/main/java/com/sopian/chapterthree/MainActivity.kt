@@ -4,22 +4,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import com.sopian.chapterthree.databinding.ActivityLoginBinding
+import com.sopian.chapterthree.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var usernameTextView: TextView
-    lateinit var passwordTextView: TextView
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        intent.apply {
-            usernameTextView = findViewById(R.id.username_text_view)
-            usernameTextView.text = getStringExtra("username")
+        // Parcelable
+        val authData = intent.getParcelableExtra<Auth>("auth")
+        val username = authData?.username
+        val password = authData?.password
 
-            passwordTextView = findViewById(R.id.password_text_view)
-            passwordTextView.text = getStringExtra("password")
+        with(binding) {
+            usernameTextView.text = username
+            passwordTextView.text = password
         }
     }
 }
